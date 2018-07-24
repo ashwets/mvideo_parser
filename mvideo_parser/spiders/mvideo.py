@@ -20,15 +20,6 @@ class MvideoSpider(scrapy.Spider):
             yield response.follow(u, callback=self.parse_price)
 
     def parse_price(self, response):
-        prices = response.css('.c-pdp-price__current::text').extract()
-        names = response.css('.sel-product-tile-title::text').extract()
-        for n, p in zip(names, prices):
-            yield {
-                'name': n.strip(),
-                'price': re.sub('\D', '', p)
-            }
-
-    def parse_price2(self, response):
         data = response.css(
             '.sel-product-tile-title::attr(data-product-info)'
         ).extract()
